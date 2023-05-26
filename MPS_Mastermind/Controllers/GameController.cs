@@ -22,14 +22,9 @@ namespace MPS_Mastermind.Controllers
 
     private static void initialize()
     {
-
       gameData = new GameDataModel();
       gameData.SecretCode = SecretCodeOperations.CreateSecretCode();
-      //gameData.SecretCode = new int[] { 3, 2, 3, 2 };
       gameData.NumberOfGuessesRemaining = 12;
-
-      //Console.WriteLine($"Secret Code: {gameData.SecretCode[0]}{gameData.SecretCode[1]}{gameData.SecretCode[2]}{gameData.SecretCode[3]}");
-      //gameData.MatchingGuess = false;
     }
 
     private static void runMainGameLoop()

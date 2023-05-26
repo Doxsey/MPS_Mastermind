@@ -43,6 +43,12 @@ namespace MPS_Mastermind.Operations
           Console.WriteLine("Error in Input. Please enter a 4 digit guess:");
           rawUserInput = Console.ReadLine();
         }
+        if (Regex.Matches(rawUserInput, @"[0-1]|[6-9]").Count > 0)
+        {
+          errorFlag = true;
+          Console.WriteLine("Please enter a guess with digits between 1 and 6:");
+          rawUserInput = Console.ReadLine();
+        }
         else
         {
           errorFlag = false;

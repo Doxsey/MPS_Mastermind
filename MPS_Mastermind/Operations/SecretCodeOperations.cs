@@ -15,7 +15,7 @@ namespace MPS_Mastermind.Operations
 
       for (int i = 0; i < 4; i++)
       {
-        secretCode[i] = rand.Next(1, 7);
+        secretCode[i] = rand.Next(2, 6);
       }
 
       return secretCode;
