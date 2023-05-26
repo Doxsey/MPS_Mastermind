@@ -16,13 +16,11 @@ namespace MPS_Mastermind.Operations
     public static int[] GetUserGuess(GameDataModel gameData)
     {
       getRawUserInput(gameData.NumberOfGuessesRemaining);
-      checkUserInput();
+      validateUserInput();
       parseUserGuess();
 
       return userGuess;
     }
-
-    #region Private Methods
 
     private static void getRawUserInput(int guessesRemaining)
     {
@@ -30,36 +28,66 @@ namespace MPS_Mastermind.Operations
       rawUserInput = Console.ReadLine();
     }
 
-    private static void checkUserInput()
+    private static void validateUserInput()
     {
       var errorFlag = false;
 
       //Retry loop if error in user input. Max of i tries
       for (int i = 0; i < 5; i++)
       {
-        if (rawUserInput.Length != 4 || Regex.Matches(rawUserInput, @"\D").Count > 0)
-        {
-          errorFlag = true;
-          Console.WriteLine("Error in Input. Please enter a 4 digit guess:");
-          rawUserInput = Console.ReadLine();
-        }
-        if (Regex.Matches(rawUserInput, @"[0-1]|[6-9]").Count > 0)
-        {
-          errorFlag = true;
-          Console.WriteLine("Please enter a guess with digits between 1 and 6:");
-          rawUserInput = Console.ReadLine();
-        }
-        else
+        if (checkIfValidInput(rawUserInput))
         {
           errorFlag = false;
           break;
         }
+        else
+        {
+          errorFlag = true;
+          Console.WriteLine("Error in Input. Please re-enter guess:");
+          rawUserInput = Console.ReadLine();
+        }
+
+
+
+        //if (rawUserInput.Length != 4 || Regex.Matches(rawUserInput, @"\D").Count > 0)
+        //{
+        //  errorFlag = true;
+        //  Console.WriteLine("Error in Input. Please enter a 4 digit guess:");
+        //  rawUserInput = Console.ReadLine();
+        //}
+        //if (Regex.Matches(rawUserInput, @"[0-1]|[6-9]").Count > 0)
+        //{
+        //  errorFlag = true;
+        //  Console.WriteLine("Please enter a guess with digits between 1 and 6:");
+        //  rawUserInput = Console.ReadLine();
+        //}
+        //else
+        //{
+        //  errorFlag = false;
+        //  break;
+        //}
       }
 
       if (errorFlag)
       {
         throw new Exception("Error in user input after 5 attempts.");
       }
+    }
+
+    public static bool checkIfValidInput(string userInput)
+    {
+      var validInputFlag = true;
+
+      if (userInput.Length != 4 || Regex.Matches(userInput, @"\D").Count > 0)
+      {
+        validInputFlag = false;
+      }
+      if (Regex.Matches(userInput, @"[0-1]|[6-9]").Count > 0)
+      {
+        validInputFlag = false;
+      }
+
+      return validInputFlag;
     }
 
     private static void parseUserGuess()
@@ -74,8 +102,6 @@ namespace MPS_Mastermind.Operations
       }
 
     }
-
-    #endregion
 
   }
 }
