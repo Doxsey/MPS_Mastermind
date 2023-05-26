@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MPS_Mastermind.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,9 @@ namespace MPS_Mastermind.Operations
     private static string rawUserInput;
     private static int[] userGuess;
 
-    public static int[] GetUserGuess()
+    public static int[] GetUserGuess(GameDataModel gameData)
     {
-      getRawUserInput();
+      getRawUserInput(gameData.NumberOfGuessesRemaining);
       checkUserInput();
       parseUserGuess();
 
@@ -23,9 +24,9 @@ namespace MPS_Mastermind.Operations
 
     #region Private Methods
 
-    private static void getRawUserInput()
+    private static void getRawUserInput(int guessesRemaining)
     {
-      Console.WriteLine("Please enter your guess:");
+      Console.WriteLine($"Please enter your guess ({guessesRemaining} Attempts Remaining):");
       rawUserInput = Console.ReadLine();
     }
 
