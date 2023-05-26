@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MPS_Mastermind.Operations
 {
-  public class SecretCodeOperations
+  public static class SecretCodeOperations
   {
     public static int[] CreateSecretCode()
     {

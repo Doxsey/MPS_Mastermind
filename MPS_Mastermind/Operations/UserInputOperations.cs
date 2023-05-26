@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MPS_Mastermind.Operations
 {
-  public class UserInputOperations
+  public static class UserInputOperations
   {
     private static string rawUserInput;
     private static int[] userGuess;

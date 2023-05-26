@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace MPS_Mastermind.Controllers
 {
-  public class ProcessUserGuessController
+  public static class ProcessUserGuessController
   {
-
     public static GuessResultModel ProcessUserGuess(GameDataModel gameData)
     {
       var guessResult = new GuessResultModel();
@@ -35,8 +34,6 @@ namespace MPS_Mastermind.Controllers
       GuessOperations.CheckForMinuses(gameData, guessResult);
 
       return guessResult;
-
-      //TODO: handle if after this guess the game ends
     }
 
   }

@@ -8,14 +8,32 @@ using System.Threading.Tasks;
 
 namespace MPS_Mastermind.Controllers
 {
-  public class GameController
+  public static class GameController
   {
     private static GameDataModel gameData;
 
     public static void PlayGame()
     {
       initialize();
+      runMainGameLoop();
+    }
 
+    #region Private Methods
+
+    private static void initialize()
+    {
+
+      gameData = new GameDataModel();
+      gameData.SecretCode = SecretCodeOperations.CreateSecretCode();
+      //gameData.SecretCode = new int[] { 3, 2, 3, 2 };
+      gameData.NumberOfGuessesRemaining = 12;
+
+      //Console.WriteLine($"Secret Code: {gameData.SecretCode[0]}{gameData.SecretCode[1]}{gameData.SecretCode[2]}{gameData.SecretCode[3]}");
+      //gameData.MatchingGuess = false;
+    }
+
+    private static void runMainGameLoop()
+    {
       for (int i = 0; i < 12; i++)
       {
         gameData.UserGuess = UserInputOperations.GetUserGuess(gameData);
@@ -34,23 +52,7 @@ namespace MPS_Mastermind.Controllers
 
       }
 
-      Console.WriteLine($"You should never see me");
-
-
-    }
-
-    #region Private Methods
-
-    private static void initialize()
-    {
-
-      gameData = new GameDataModel();
-      gameData.SecretCode = SecretCodeOperations.CreateSecretCode();
-      //gameData.SecretCode = new int[] { 3, 2, 3, 2 };
-      gameData.NumberOfGuessesRemaining = 12;
-
-      //Console.WriteLine($"Secret Code: {gameData.SecretCode[0]}{gameData.SecretCode[1]}{gameData.SecretCode[2]}{gameData.SecretCode[3]}");
-      //gameData.MatchingGuess = false;
+      throw new Exception("Exception in the number of guesses");
     }
 
     #endregion

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MPS_Mastermind.Operations
 {
-  public class GuessOperations
+  public static class GuessOperations
   {
     public static bool CheckForWinningGuess(GameDataModel gameData)
     {
