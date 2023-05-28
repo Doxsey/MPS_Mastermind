@@ -12,7 +12,7 @@ namespace MPS_Mastermind.Models
     public bool LosingGuessFlag { get; set; }
     public int NumberOfPluses { get; set; }
     public int NumberOfMinuses { get; set; }
-    public int[] PositionMatchFlags { get; set; }
+    public int[] PositionMatchMask { get; set; }
 
 
     public GuessResultModel()
@@ -21,7 +21,7 @@ namespace MPS_Mastermind.Models
       LosingGuessFlag = false;
       NumberOfPluses = 0;
       NumberOfMinuses = 0;
-      PositionMatchFlags = new int[] { 0, 0, 0, 0 };
+      PositionMatchMask = new int[] { 0, 0, 0, 0 };
     }
 
   }

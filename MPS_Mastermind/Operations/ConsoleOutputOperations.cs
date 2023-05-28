@@ -24,19 +24,7 @@ namespace MPS_Mastermind.Operations
 
     public static void DisplayPlusesAndMinuses(GuessResultModel guessResult)
     {
-      var displayString = "";
-
-      for (int i = 0; i < guessResult.NumberOfPluses; i++)
-      {
-        displayString = displayString + "+";
-      }
-
-      for (int i = 0; i < guessResult.NumberOfMinuses; i++)
-      {
-        displayString = displayString + "-";
-      }
-
-      Console.WriteLine(displayString);
+      Console.WriteLine(GuessOperations.GetPlusAndMinusString(guessResult));
     }
 
   }

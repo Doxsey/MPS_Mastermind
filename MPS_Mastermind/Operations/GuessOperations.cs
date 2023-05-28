@@ -23,7 +23,7 @@ namespace MPS_Mastermind.Operations
         if (userGuessDigit == gameData.SecretCode[arrayIndex])
         {
           guessResult.NumberOfPluses++;
-          guessResult.PositionMatchFlags[arrayIndex] = 1;
+          guessResult.PositionMatchMask[arrayIndex] = 1;
         }
         arrayIndex++;
       }
@@ -45,8 +45,6 @@ namespace MPS_Mastermind.Operations
 
     }
 
-    #region Private Methods
-
     private static List<int> getRemainingNonMatchedNumbers(int[] codeArray, GuessResultModel guessResult)
     {
       var remainingNonMatchedNumbers = new List<int>();
@@ -55,7 +53,7 @@ namespace MPS_Mastermind.Operations
 
       foreach (var codeDigit in codeArray)
       {
-        if (guessResult.PositionMatchFlags[arrayIndex] == 0)
+        if (guessResult.PositionMatchMask[arrayIndex] == 0)
         {
           remainingNonMatchedNumbers.Add(codeArray[arrayIndex]);
         }
@@ -66,7 +64,22 @@ namespace MPS_Mastermind.Operations
       return remainingNonMatchedNumbers;
     }
 
-    #endregion
+    public static string GetPlusAndMinusString(GuessResultModel guessResult)
+    {
+      var displayString = "";
+
+      for (int i = 0; i < guessResult.NumberOfPluses; i++)
+      {
+        displayString = displayString + "+";
+      }
+
+      for (int i = 0; i < guessResult.NumberOfMinuses; i++)
+      {
+        displayString = displayString + "-";
+      }
+
+      return displayString;
+    }
 
   }
 }
