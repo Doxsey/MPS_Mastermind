@@ -18,8 +18,8 @@ namespace MPS_Mastermind.Controllers
     public static int[] GetUserGuess(GameDataModel gameData)
     {
       var rawUserInput = UserInputOperations.GetRawUserInput(gameData.NumberOfGuessesRemaining);
-      UserInputOperations.ValidateUserInput(rawUserInput);
-      var userGuess = UserInputOperations.ParseUserGuess(rawUserInput);
+      var validatedUserInput = UserInputOperations.ValidateUserInput(rawUserInput);
+      var userGuess = UserInputOperations.ParseUserGuess(validatedUserInput);
 
       return userGuess;
     }

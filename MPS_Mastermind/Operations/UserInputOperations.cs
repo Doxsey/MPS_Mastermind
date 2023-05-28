@@ -25,7 +25,7 @@ namespace MPS_Mastermind.Operations
     /// Validates user input. User has limited attempts at a correct guess.
     /// </summary>
     /// <param name="rawUserInput"></param>
-    public static void ValidateUserInput(string rawUserInput)
+    public static string ValidateUserInput(string rawUserInput)
     {
       var errorFlag = false;
 
@@ -49,6 +49,8 @@ namespace MPS_Mastermind.Operations
       {
         throw new Exception("Error in user input after 5 attempts.");
       }
+
+      return rawUserInput;
     }
 
     /// <summary>

@@ -30,6 +30,7 @@ namespace MPS_Mastermind.Controllers
     {
       gameData = new GameDataModel();
       gameData.SecretCode = SecretCodeOperations.CreateSecretCode();
+      //gameData.SecretCode = new int[] { 4, 2, 2, 5 };
       gameData.NumberOfGuessesRemaining = 12;
     }
 
