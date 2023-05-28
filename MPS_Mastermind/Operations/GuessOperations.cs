@@ -9,11 +9,21 @@ namespace MPS_Mastermind.Operations
 {
   public static class GuessOperations
   {
+    /// <summary>
+    /// Checks if user guess is a winner. Returns true for winner.
+    /// </summary>
+    /// <param name="gameData"></param>
+    /// <returns></returns>
     public static bool CheckForWinningGuess(GameDataModel gameData)
     {
       return Enumerable.SequenceEqual(gameData.SecretCode, gameData.UserGuess);
     }
 
+    /// <summary>
+    /// Analyzes the user guess for the appropriate number of pluses to assign and sets the number in the active GuessResultModel.
+    /// </summary>
+    /// <param name="gameData"></param>
+    /// <param name="guessResult"></param>
     public static void CheckForPluses(GameDataModel gameData, GuessResultModel guessResult)
     {
       int arrayIndex = 0;
@@ -23,12 +33,17 @@ namespace MPS_Mastermind.Operations
         if (userGuessDigit == gameData.SecretCode[arrayIndex])
         {
           guessResult.NumberOfPluses++;
-          guessResult.PositionMatchMask[arrayIndex] = 1;
+          guessResult.GuessPositionMask[arrayIndex] = 1;
         }
         arrayIndex++;
       }
     }
 
+    /// <summary>
+    /// Analyzes the user guess for the appropriate number of minuses to assign and sets the number in the active GuessResultModel.
+    /// </summary>
+    /// <param name="gameData"></param>
+    /// <param name="guessResult"></param>
     public static void CheckForMinuses(GameDataModel gameData, GuessResultModel guessResult)
     {
       List<int> remainingNonMatchedNumbersFromSecretCode = getRemainingNonMatchedNumbers(gameData.SecretCode, guessResult);
@@ -45,6 +60,12 @@ namespace MPS_Mastermind.Operations
 
     }
 
+    /// <summary>
+    /// Returns a list of eligible numbers to be matched. Uses a mask array to determine eligibility.
+    /// </summary>
+    /// <param name="codeArray"></param>
+    /// <param name="guessResult"></param>
+    /// <returns></returns>
     private static List<int> getRemainingNonMatchedNumbers(int[] codeArray, GuessResultModel guessResult)
     {
       var remainingNonMatchedNumbers = new List<int>();
@@ -53,7 +74,7 @@ namespace MPS_Mastermind.Operations
 
       foreach (var codeDigit in codeArray)
       {
-        if (guessResult.PositionMatchMask[arrayIndex] == 0)
+        if (guessResult.GuessPositionMask[arrayIndex] == 0)
         {
           remainingNonMatchedNumbers.Add(codeArray[arrayIndex]);
         }
@@ -64,6 +85,11 @@ namespace MPS_Mastermind.Operations
       return remainingNonMatchedNumbers;
     }
 
+    /// <summary>
+    /// Translates the integer number of pluses and minuses to a display string
+    /// </summary>
+    /// <param name="guessResult"></param>
+    /// <returns></returns>
     public static string GetPlusAndMinusString(GuessResultModel guessResult)
     {
       var displayString = "";

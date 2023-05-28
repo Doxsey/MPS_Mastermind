@@ -10,32 +10,29 @@ namespace MPS_Mastermind.Operations
 {
   public static class UserInputOperations
   {
-    private static string rawUserInput;
-    private static int[] userGuess;
-
-    public static int[] GetUserGuess(GameDataModel gameData)
-    {
-      getRawUserInput(gameData.NumberOfGuessesRemaining);
-      validateUserInput();
-      parseUserGuess();
-
-      return userGuess;
-    }
-
-    private static void getRawUserInput(int guessesRemaining)
+    /// <summary>
+    /// Gets raw user input as a string.
+    /// </summary>
+    /// <param name="guessesRemaining"></param>
+    /// <returns></returns>
+    public static string GetRawUserInput(int guessesRemaining)
     {
       Console.WriteLine($"Please enter your guess ({guessesRemaining} Attempts Remaining):");
-      rawUserInput = Console.ReadLine();
+      return Console.ReadLine();
     }
 
-    private static void validateUserInput()
+    /// <summary>
+    /// Validates user input. User has limited attempts at a correct guess.
+    /// </summary>
+    /// <param name="rawUserInput"></param>
+    public static void ValidateUserInput(string rawUserInput)
     {
       var errorFlag = false;
 
       //Retry loop if error in user input. Max of i tries
       for (int i = 0; i < 5; i++)
       {
-        if (checkIfValidInput(rawUserInput))
+        if (CheckIfValidInput(rawUserInput))
         {
           errorFlag = false;
           break;
@@ -54,7 +51,12 @@ namespace MPS_Mastermind.Operations
       }
     }
 
-    public static bool checkIfValidInput(string userInput)
+    /// <summary>
+    /// Checks that all characters are digits and between 1 and 6. Returns true if valid, false if invalid.
+    /// </summary>
+    /// <param name="userInput"></param>
+    /// <returns></returns>
+    public static bool CheckIfValidInput(string userInput)
     {
       var validInputFlag = true;
 
@@ -70,10 +72,15 @@ namespace MPS_Mastermind.Operations
       return validInputFlag;
     }
 
-    private static void parseUserGuess()
+    /// <summary>
+    /// Parses user guess from a string to in int array
+    /// </summary>
+    /// <param name="rawUserInput"></param>
+    /// <returns></returns>
+    public static int[] ParseUserGuess(string rawUserInput)
     {
       var arrayIndex = 0;
-      userGuess = new int[4];
+      var userGuess = new int[4];
 
       foreach (var userNumber in rawUserInput)
       {
@@ -81,6 +88,7 @@ namespace MPS_Mastermind.Operations
         arrayIndex++;
       }
 
+      return userGuess;
     }
 
   }

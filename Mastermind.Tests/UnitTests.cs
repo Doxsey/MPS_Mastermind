@@ -7,8 +7,7 @@ using System.Linq;
 namespace Mastermind.Tests
 {
   public class Tests
-  {//TODO: check naming conventions here
-
+  {
     #region User Input Validation Tests
 
     [Test]
@@ -18,7 +17,7 @@ namespace Mastermind.Tests
     [TestCase("5432")]
     public void CheckIfValidInput_WithValidInput_ShouldReturnTrue(string testInput)
     {
-      Assert.That(UserInputOperations.checkIfValidInput(testInput), Is.True);
+      Assert.That(UserInputOperations.CheckIfValidInput(testInput), Is.True);
     }
 
     [Test]
@@ -33,22 +32,12 @@ namespace Mastermind.Tests
     [TestCase(".445")]
     public void CheckIfValidInput_WithInvalidInput_ShouldReturnFalse(string testInput)
     {
-      Assert.That(UserInputOperations.checkIfValidInput(testInput), Is.False);
+      Assert.That(UserInputOperations.CheckIfValidInput(testInput), Is.False);
     }
 
     #endregion
 
-    [Test]
-    public void CreateSecretCode_ShouldBeValid_WhenCreated()
-    {
-      var secretCode = SecretCodeOperations.CreateSecretCode();
-
-      foreach (var secretDigit in secretCode)
-      {
-        Assert.That(secretDigit, Is.LessThan(6));
-        Assert.That(secretDigit, Is.GreaterThan(1));
-      }
-    }
+    #region User Guess Analysis Tests
 
     [Test]
     [TestCase(2222, 2222, 4)]
@@ -57,7 +46,7 @@ namespace Mastermind.Tests
     [TestCase(3322, 2233, 0)]
     [TestCase(5432, 4325, 0)]
     [TestCase(3232, 2223, 1)]
-    public void CheckForPluses_ShouldReturnCorrectNumberOfPluses_WithTestData(int secretCode, int userGuess, int expectedNumberOfPluses)
+    public void CheckForPluses_WithTestData_ShouldReturnCorrectNumberOfPluses(int secretCode, int userGuess, int expectedNumberOfPluses)
     {
       var testGameData = generateTestGameData(secretCode, userGuess);
       var testGuessResult = new GuessResultModel();
@@ -69,17 +58,17 @@ namespace Mastermind.Tests
     }
 
     [Test]
-    [TestCase(2222, 2222, new int[] {1,1,1,1}, 0)]
-    [TestCase(2233, 2323, new int[] {1,0,0,1}, 2)]
+    [TestCase(2222, 2222, new int[] { 1, 1, 1, 1 }, 0)]
+    [TestCase(2233, 2323, new int[] { 1, 0, 0, 1 }, 2)]
     [TestCase(5432, 2345, new int[] { 0, 0, 0, 0 }, 4)]
     [TestCase(3232, 2223, new int[] { 0, 1, 0, 0 }, 2)]
 
-    public void CheckForMinuses_ShouldReturnCorrectNumberOfMinuses_WithTestData(int secretCode, int userGuess, int[] matchMask, int expectedNumberOfMinuses)
+    public void CheckForMinuses_WithTestData_ShouldReturnCorrectNumberOfMinuses(int secretCode, int userGuess, int[] matchMask, int expectedNumberOfMinuses)
     {
       var testGameData = generateTestGameData(secretCode, userGuess);
       var testGuessResult = new GuessResultModel();
 
-      testGuessResult.PositionMatchMask = matchMask;
+      testGuessResult.GuessPositionMask = matchMask;
 
       GuessOperations.CheckForMinuses(testGameData, testGuessResult);
 
@@ -95,7 +84,7 @@ namespace Mastermind.Tests
     [TestCase(5432, 2345, "----")]
     [TestCase(5432, 5433, "+++")]
     [TestCase(2345, 3245, "++--")]
-    public void GetPlusAndMinusString_ShouldReturnCorrectResponse_WithTestData(int secretCode, int userGuess, string expectedResponseString)
+    public void GetPlusAndMinusString_WithTestData_ShouldReturnCorrectResponse(int secretCode, int userGuess, string expectedResponseString)
     {
       var testGameData = generateTestGameData(secretCode, userGuess);
       var testGuessResult = new GuessResultModel();
@@ -107,8 +96,32 @@ namespace Mastermind.Tests
       Assert.That(resultString, Is.EqualTo(expectedResponseString));
     }
 
+    #endregion
+
+    #region Misc Unit Tests
+
+    [Test]
+    public void CreateSecretCode_WhenRandomlyCreated_ShouldBeValid()
+    {
+      var secretCode = SecretCodeOperations.CreateSecretCode();
+
+      foreach (var secretDigit in secretCode)
+      {
+        Assert.That(secretDigit, Is.LessThan(6));
+        Assert.That(secretDigit, Is.GreaterThan(1));
+      }
+    }
+
+    #endregion
+
     #region Private Methods
 
+    /// <summary>
+    /// Creates a GameDataModel for testing. The secretCode and userGuess is converted in an int[] to use in the model.
+    /// </summary>
+    /// <param name="secretCode"></param>
+    /// <param name="userGuess"></param>
+    /// <returns></returns>
     private GameDataModel generateTestGameData(int secretCode, int userGuess)
     {
       var gameData = new GameDataModel();
@@ -118,7 +131,6 @@ namespace Mastermind.Tests
 
       return gameData;
     }
-
 
     #endregion
 

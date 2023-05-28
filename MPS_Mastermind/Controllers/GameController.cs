@@ -12,6 +12,9 @@ namespace MPS_Mastermind.Controllers
   {
     private static GameDataModel gameData;
 
+    /// <summary>
+    /// Starting point of a new game.
+    /// </summary>
     public static void PlayGame()
     {
       initialize();
@@ -20,6 +23,9 @@ namespace MPS_Mastermind.Controllers
 
     #region Private Methods
 
+    /// <summary>
+    /// Initialize game data for a new game.
+    /// </summary>
     private static void initialize()
     {
       gameData = new GameDataModel();
@@ -27,12 +33,15 @@ namespace MPS_Mastermind.Controllers
       gameData.NumberOfGuessesRemaining = 12;
     }
 
+    /// <summary>
+    /// Main game loop.
+    /// </summary>
     private static void runMainGameLoop()
     {
       for (int i = 0; i < 12; i++)
       {
-        gameData.UserGuess = UserInputOperations.GetUserGuess(gameData);
-        var guessResult = ProcessUserGuessController.ProcessUserGuess(gameData);
+        gameData.UserGuess = UserGuessController.GetUserGuess(gameData);
+        var guessResult = UserGuessController.ProcessUserGuess(gameData);
 
         if (guessResult.WinningGuessFlag)
         {

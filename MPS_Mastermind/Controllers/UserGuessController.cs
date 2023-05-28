@@ -8,8 +8,27 @@ using System.Threading.Tasks;
 
 namespace MPS_Mastermind.Controllers
 {
-  public static class ProcessUserGuessController
+  public static class UserGuessController
   {
+    /// <summary>
+    /// Gets user guess from console
+    /// </summary>
+    /// <param name="gameData"></param>
+    /// <returns></returns>
+    public static int[] GetUserGuess(GameDataModel gameData)
+    {
+      var rawUserInput = UserInputOperations.GetRawUserInput(gameData.NumberOfGuessesRemaining);
+      UserInputOperations.ValidateUserInput(rawUserInput);
+      var userGuess = UserInputOperations.ParseUserGuess(rawUserInput);
+
+      return userGuess;
+    }
+
+    /// <summary>
+    /// Processes user guess for possible win/loss or plus/minus response.
+    /// </summary>
+    /// <param name="gameData"></param>
+    /// <returns></returns>
     public static GuessResultModel ProcessUserGuess(GameDataModel gameData)
     {
       var guessResult = new GuessResultModel();

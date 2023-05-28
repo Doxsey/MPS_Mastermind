@@ -8,6 +8,10 @@ namespace MPS_Mastermind.Operations
 {
   public static class SecretCodeOperations
   {
+    /// <summary>
+    /// Generates a new random secret code.
+    /// </summary>
+    /// <returns></returns>
     public static int[] CreateSecretCode()
     {
       var rand = new Random();
