@@ -10,7 +10,7 @@ namespace MPS_Mastermind.Operations
   public static class ConsoleOutputOperations
   {
     /// <summary>
-    /// Prints to console for a solved puzzle
+    /// Prints to console for a solved puzzle. Ends the game.
     /// </summary>
     public static void DisplayVictory()
     {
@@ -19,7 +19,7 @@ namespace MPS_Mastermind.Operations
     }
 
     /// <summary>
-    /// Prints to console when a game is lost
+    /// Prints to console when a game is lost. Ends the game.
     /// </summary>
     /// <param name="gameData"></param>
     public static void DisplayLoss(GameDataModel gameData)
